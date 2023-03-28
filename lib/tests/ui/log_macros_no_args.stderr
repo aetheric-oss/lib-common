@@ -1,0 +1,7 @@
+error: log_macros takes at least 1 argument
+ --> tests/ui/log_macros_no_args.rs:3:1
+  |
+3 | log_macros!();
+  | ^^^^^^^^^^^^^
+  |
+  = note: this error originates in the macro `log_macros` (in Nightly builds, run with -Z macro-backtrace for more info)

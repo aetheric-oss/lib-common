@@ -1,0 +1,5 @@
+error: expected string literal
+ --> tests/ui/log_macros_args_wrong_type.rs:5:13
+  |
+5 | log_macros!(not_a_StrLit);
+  |             ^^^^^^^^^^^^

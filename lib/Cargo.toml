@@ -1,0 +1,30 @@
+[package]
+description = "Arrow Services Common library"
+keywords    = ["vtol", "lib", "common"]       # max 5
+name        = "lib-common"
+version     = "0.1.0"
+
+categories.workspace   = true
+edition.workspace      = true
+homepage.workspace     = true
+license-file.workspace = true
+repository.workspace   = true
+
+[dependencies]
+arrow-macros-derive = { path = "../arrow-macros/derive" }
+cargo-husky         = "1"
+chrono              = { version = "0.4", features = ["serde"] }
+prost-types         = "0.11"
+trybuild            = "1.0"
+
+[dev-dependencies]
+log     = "0.4"
+logtest = "2.0"
+
+[dev-dependencies.cargo-husky]
+default-features = false          # Disable features which are enabled by default
+features         = ["user-hooks"]
+version          = "1"
+
+[lib]
+name = "lib_common"

@@ -1,27 +1,13 @@
-[package]
-description  = "Arrow Services Common library"
+[workspace]
+members = ["lib", "arrow-macros/core", "arrow-macros/derive"]
+
+[workspace.package]
 edition      = "2021"
 homepage     = "https://www.arrowair.com/docs/documentation/services/intro"
-keywords     = ["vtol", "lib", "common"]                                    # max 5
 license-file = "LICENSE"
-name         = "lib-common"
 repository   = "https://github.com/Arrow-air/lib-common"
-version      = "0.1.0"
 
 categories = [
   "aerospace::drones",
   "aerospace::protocols",
 ] # max 5 -- https://crates.io/category_slugs
-
-[dependencies]
-cargo-husky = "1"
-chrono      = { version = "0.4", features = ["serde"] }
-prost-types = "0.11"
-
-[dev-dependencies.cargo-husky]
-default-features = false          # Disable features which are enabled by default
-features         = ["user-hooks"]
-version          = "1"
-
-[lib]
-name = "lib_common"
