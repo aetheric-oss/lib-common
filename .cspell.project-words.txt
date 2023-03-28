@@ -20,3 +20,5 @@ nanos
 datetime
 subsec
 prost
+logtest
+trybuild
