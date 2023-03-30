@@ -3,15 +3,15 @@
 pub use chrono::{DateTime, NaiveDateTime, TimeZone, Utc};
 pub use prost_types::Timestamp;
 
-/// Converts a prost Timestamp value to a chrono DateTime<Utc> value.
-/// Will return None if Timestamp `nanos` value is negative
+/// Converts a prost [`Timestamp`] value to a chrono [`DateTime<Utc>`] value.
+/// Will return [`None`] if [`Timestamp`] `nanos` value is negative
 pub fn timestamp_to_datetime(ts: &Timestamp) -> Option<DateTime<Utc>> {
     let nanos: u32 = ts.nanos.try_into().ok()?;
     let ndt: NaiveDateTime = NaiveDateTime::from_timestamp_opt(ts.seconds, nanos)?;
     Some(DateTime::<Utc>::from_utc(ndt, Utc))
 }
 
-/// Converts a chrono DateTime<Utc> value to a prost Timestamp value.
+/// Converts a chrono [`DateTime<Utc>`] value to a prost [`Timestamp`]() value.
 pub fn datetime_to_timestamp(dt: &DateTime<Utc>) -> Option<Timestamp> {
     let seconds = dt.timestamp();
 
