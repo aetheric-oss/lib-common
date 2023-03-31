@@ -1,13 +1,22 @@
 [package]
-name    = "lib_template_rust"
-version = "0.1.0"
-edition = "2021"              # Allowed values are 2015, 2018, 2021
-# Rust Editions: https://doc.rust-lang.org/edition-guide/index.html
+description  = "Arrow Services Common library"
+edition      = "2021"
+homepage     = "https://www.arrowair.com/docs/documentation/services/intro"
+keywords     = ["vtol", "lib", "common"]                                    # max 5
+license-file = "LICENSE"
+name         = "lib-common"
+repository   = "https://github.com/Arrow-air/lib-common"
+version      = "0.1.0"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+categories = [
+  "aerospace::drones",
+  "aerospace::protocols",
+] # max 5 -- https://crates.io/category_slugs
 
 [dependencies]
 cargo-husky = "1"
+chrono      = { version = "0.4", features = ["serde"] }
+prost-types = "0.11"
 
 [dev-dependencies.cargo-husky]
 default-features = false          # Disable features which are enabled by default
@@ -15,5 +24,4 @@ features         = ["user-hooks"]
 version          = "1"
 
 [lib]
-name = "lib_template_rust"
-path = "src/lib.rs"
+name = "lib_common"

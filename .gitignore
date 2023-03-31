@@ -36,3 +36,10 @@ Cargo.lock
 
 # Logger Output
 log/
+
+# Outputs
+out/
+
+# Coverage output
+coverage/
+*.profraw

@@ -1,22 +1,18 @@
 ![Arrow Banner](https://github.com/Arrow-air/.github/raw/main/profile/assets/arrow_v2_twitter-banner_neu.png)
 
-# LIBRARY_NAME Library
+# `lib-common` Library
 
-*TODO after cloning:*
-1. *Replace the repository name on these badges:*
-
-![Rust
-Checks](https://github.com/arrow-air/lib-template-rust/actions/workflows/rust_ci.yml/badge.svg?branch=main)
-![Python Flake8](https://github.com/arrow-air/lib-template-rust/actions/workflows/python_ci.yml/badge.svg?branch=main)
+![GitHub stable release (latest by date)](https://img.shields.io/github/v/release/Arrow-air/lib-common?sort=semver&color=green)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Arrow-air/lib-common?include_prereleases)
+![Sanity Checks](https://github.com/arrow-air/lib-common/actions/workflows/sanity_checks.yml/badge.svg?branch=main)
+![Rust Checks](https://github.com/arrow-air/lib-common/actions/workflows/rust_ci.yml/badge.svg?branch=main)
+![Python PEP8](https://github.com/arrow-air/lib-common/actions/workflows/python_ci.yml/badge.svg?branch=main)
 ![Arrow DAO
 Discord](https://img.shields.io/discord/853833144037277726?style=plastic)
 
-2. *Replace all instances of `lib-template-rust` and `lib_template_rust` with the library name.*
-3. *Remove this and all previous numbered bullets.*
-
 ## :telescope: Overview
 
-FIXME
+Common functions and data types across the Arrow microservices.
 
 Directory:
 - `src/`: Source Code and Unit Tests
@@ -87,12 +83,14 @@ There are additional make targets available. You can find all possible targets b
 
 ## :scroll: Documentation
 The following documents are relevant to this library:
-- [Concept of Operations](FIXME)
-- [Requirements & User Stories](FIXME)
-- [Software Design Document](./docs/sdd.md)
+- [Concept of Operations](./docs/conops.md)
 
 ## :busts_in_silhouette: Arrow DAO
 Learn more about us:
-- [Website](https://www.arrowair.com/)
+- [Arrow DAO Website](https://www.arrowair.com/)
 - [Arrow Docs](https://www.arrowair.com/docs/intro)
 - [Discord](https://discord.com/invite/arrow)
+
+## LICENSE Notice
+
+Please note that svc-template is under BUSL license until the Change Date, currently the earlier of two years from the release date. Exceptions to the license may be specified by Arrow Governance via Additional Use Grants, which can, for example, allow svc-template to be deployed for certain production uses. Please reach out to Arrow DAO to request a DAO vote for exceptions to the license, or to move up the Change Date.
