@@ -36,7 +36,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           shared-key: "rust-ci"
-          cache-directories: "${GITHUB_WORKSPACE}/.cargo"
+          cache-directories: "${{ github.workspace }}/.cargo"
       - run: make rust-check
 
   build:
@@ -48,7 +48,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           shared-key: "rust-ci"
-          cache-directories: "${GITHUB_WORKSPACE}/.cargo"
+          cache-directories: "${{ github.workspace }}/.cargo"
       - run: make rust-build
 
   test:
@@ -60,7 +60,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           shared-key: "rust-ci"
-          cache-directories: "${GITHUB_WORKSPACE}/.cargo"
+          cache-directories: "${{ github.workspace }}/.cargo"
       - name: Test
         run: make rust-test
 
@@ -73,7 +73,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           shared-key: "rust-ci"
-          cache-directories: "${GITHUB_WORKSPACE}/.cargo"
+          cache-directories: "${{ github.workspace }}/.cargo"
       - run: make rust-clippy
 
   # Validates the code examples in doc comments
@@ -86,7 +86,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           shared-key: "rust-ci"
-          cache-directories: "${GITHUB_WORKSPACE}/.cargo"
+          cache-directories: "${{ github.workspace }}/.cargo"
       - run: make rust-doc
 
   coverage:
@@ -100,7 +100,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           shared-key: "rust-ci"
-          cache-directories: "${GITHUB_WORKSPACE}/.cargo"
+          cache-directories: "${{ github.workspace }}/.cargo"
       - run: |
           mkdir -p coverage
           make rust-coverage | tee coverage/ut.txt
