@@ -104,7 +104,6 @@ jobs:
       - run: |
           mkdir -p coverage
           make rust-coverage | tee coverage/ut.txt
-          make rust-coverage | tee coverage/ut.txt
           echo UT_COV=$(sed '/||/,$!d' coverage/ut.txt) >> $GITHUB_ENV
       - uses: coverallsapp/github-action@master
         with:
