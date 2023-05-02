@@ -8,9 +8,12 @@ on:
       - develop
       - main
     paths:
-      - "**/*.rs"
-      - "Cargo.lock"
-      - "**/Cargo.toml"
+      - server/**
+      - client-grpc/**
+      - client-rest/**
+      - src/**
+      - Cargo.lock
+      - Cargo.toml
 
 name: Rust Checks
 
