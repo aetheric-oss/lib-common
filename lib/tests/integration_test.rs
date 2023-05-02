@@ -8,6 +8,7 @@ fn ui() {
 
 #[test]
 fn log_test() {
+    use lib_common::grpc::get_endpoint_from_env;
     use log;
     use logtest::Logger;
 
@@ -47,4 +48,48 @@ fn log_test() {
     assert_eq!(logger.pop().unwrap().args(), "info");
 
     test2_warn!("warn");
+    assert_eq!(logger.pop().unwrap().args(), "warn");
+
+    // test_get_endpoint_from_env_with_defaults
+    std::env::remove_var("GRPC_PORT");
+    std::env::remove_var("GRPC_HOST");
+    let _ = get_endpoint_from_env("GRPC_HOST", "GRPC_PORT");
+    let _ = logger.pop();
+    assert_eq!(
+        logger.pop().unwrap().args(),
+        "(get_endpoint_from_env) GRPC_HOST undefined, using default [localhost]."
+    );
+    assert_eq!(
+        logger.pop().unwrap().args(),
+        "(get_endpoint_from_env) GRPC_PORT undefined, using default [50051]."
+    );
+    assert_eq!(
+        logger.pop().unwrap().args(),
+        "(get_endpoint_from_env) host [localhost], port [50051]."
+    );
+
+    // test_get_endpoint_from_env_with_valid_env_vars
+    // Set up env vars
+    std::env::set_var("GRPC_PORT", "50055");
+    std::env::set_var("GRPC_HOST", "custom_host");
+    let _ = get_endpoint_from_env("GRPC_HOST", "GRPC_PORT");
+    let _ = logger.pop();
+    assert_eq!(
+        logger.pop().unwrap().args(),
+        "(get_endpoint_from_env) host [custom_host], port [50055]."
+    );
+
+    // test_get_endpoint_from_env_with_invalid_port
+    // Set up env vars
+    std::env::set_var("GRPC_PORT", "invalid");
+    let _ = get_endpoint_from_env("GRPC_HOST", "GRPC_PORT");
+    let _ = logger.pop();
+    assert_eq!(
+        logger.pop().unwrap().args(),
+        "(get_endpoint_from_env) GRPC_PORT is not a valid u16 type, using default [50051]."
+    );
+    assert_eq!(
+        logger.pop().unwrap().args(),
+        "(get_endpoint_from_env) host [custom_host], port [50051]."
+    );
 }

@@ -43,7 +43,7 @@ pub fn log_macros_core(input: TokenStream) -> TokenStream {
         );
 
         quote! {
-            #[doc = concat!("Writes a ", stringify!(#level), "! message to the ", #log_prefix, "::", #log_type, "logger")]
+            #[doc = concat!("Writes a ", stringify!(#level), "! message to the `", #log_prefix, "::", #log_type, "` logger")]
             #[macro_export]
             macro_rules! #macro_name {
                 ($($arg:tt)+) => {

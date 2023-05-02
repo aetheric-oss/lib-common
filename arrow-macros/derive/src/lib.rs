@@ -4,8 +4,9 @@ use arrow_macros_core::log_macros_core;
 use proc_macro::TokenStream;
 use proc_macro_error::proc_macro_error;
 
-/// Generate log macros for debug, info, warn and error functions
-/// Example:
+/// Generate log macros for debug, info, warn and error functions.
+///
+/// # Example:
 /// ```
 /// pub mod grpc {
 ///     //! Common Functions and Types Library for Arrow Services
