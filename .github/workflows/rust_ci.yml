@@ -8,9 +8,9 @@ on:
       - develop
       - main
     paths:
-      - **/*.rs
-      - Cargo.lock
-      - **/Cargo.toml
+      - "**/*.rs"
+      - "Cargo.lock"
+      - "**/Cargo.toml"
 
 name: Rust Checks
 
