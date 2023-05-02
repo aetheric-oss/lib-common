@@ -29,28 +29,28 @@ fn test_log_macro_default_prefix() {
     let input = quote!("example");
 
     let expected_output = quote!(
-        #[doc = concat!("Writes a ", stringify!(debug), "! message to the ", "app", "::", "example", "logger")]
+        #[doc = concat!("Writes a ", stringify!(debug), "! message to the `", "app", "::", "example", "` logger")]
         #[macro_export]
         macro_rules! example_debug {
             ($($arg:tt)+) => {
                 log::debug!(target: concat!("app", "::", "example"), $($arg)+)
             };
         }
-        #[doc = concat!("Writes a ", stringify!(info), "! message to the ", "app", "::", "example", "logger")]
+        #[doc = concat!("Writes a ", stringify!(info), "! message to the `", "app", "::", "example", "` logger")]
         #[macro_export]
         macro_rules! example_info {
             ($($arg:tt)+) => {
                 log::info!(target: concat!("app", "::", "example"), $($arg)+)
             };
         }
-        #[doc = concat!("Writes a ", stringify!(warn), "! message to the ", "app", "::", "example", "logger")]
+        #[doc = concat!("Writes a ", stringify!(warn), "! message to the `", "app", "::", "example", "` logger")]
         #[macro_export]
         macro_rules! example_warn {
             ($($arg:tt)+) => {
                 log::warn!(target: concat!("app", "::", "example"), $($arg)+)
             };
         }
-        #[doc = concat!("Writes a ", stringify!(error), "! message to the ", "app", "::", "example", "logger")]
+        #[doc = concat!("Writes a ", stringify!(error), "! message to the `", "app", "::", "example", "` logger")]
         #[macro_export]
         macro_rules! example_error {
             ($($arg:tt)+) => {
