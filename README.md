@@ -4,11 +4,11 @@
 
 ![GitHub stable release (latest by date)](https://img.shields.io/github/v/release/Arrow-air/lib-common?sort=semver&color=green)
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Arrow-air/lib-common?include_prereleases)
+[![Coverage Status](https://coveralls.io/repos/github/Arrow-air/lib-common/badge.svg?branch=develop)](https://coveralls.io/github/Arrow-air/lib-common)
 ![Sanity Checks](https://github.com/arrow-air/lib-common/actions/workflows/sanity_checks.yml/badge.svg?branch=main)
 ![Rust Checks](https://github.com/arrow-air/lib-common/actions/workflows/rust_ci.yml/badge.svg?branch=main)
 ![Python PEP8](https://github.com/arrow-air/lib-common/actions/workflows/python_ci.yml/badge.svg?branch=main)
-![Arrow DAO
-Discord](https://img.shields.io/discord/853833144037277726?style=plastic)
+![Arrow DAO Discord](https://img.shields.io/discord/853833144037277726?style=plastic)
 
 ## :telescope: Overview
 
