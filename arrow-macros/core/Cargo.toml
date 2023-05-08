@@ -2,7 +2,7 @@
 description = "Arrow Services Common Proc Macros"
 keywords    = ["vtol", "lib", "common", "macro"]  # max 5
 name        = "arrow-macros-core"
-version     = "0.1.1-develop.0"
+version     = "0.1.1-develop.1"
 
 categories.workspace   = true
 edition.workspace      = true
