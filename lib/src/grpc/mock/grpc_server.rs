@@ -96,12 +96,22 @@ pub mod server {
                     Box::pin(fut)
                 }
                 _ => Box::pin(async move {
-                    Ok(http::Response::builder()
+                    let response = http::Response::builder()
                         .status(200)
                         .header("grpc-status", "12")
                         .header("content-type", "application/grpc")
-                        .body(empty_body())
-                        .unwrap())
+                        .body(empty_body());
+
+                    match response {
+                        Ok(response) => Ok(response),
+                        Err(e) => {
+                            let error_response = http::Response::builder()
+                                .status(500)
+                                .body(empty_body())
+                                .expect(&format!("Failed to build error response: {}", e));
+                            Ok(error_response)
+                        }
+                    }
                 }),
             }
         }

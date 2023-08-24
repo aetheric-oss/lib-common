@@ -69,7 +69,7 @@ where
                             self.get_address(),
                             e
                         );
-                        grpc_error!("{}", error);
+                        grpc_error!("(get_client) {}", error);
                         Err(Status::internal(error))
                     }
                 }
@@ -222,7 +222,7 @@ mod tests {
             &self,
             request: Request<grpc_server::ReadyRequest>,
         ) -> Result<Response<grpc_server::ReadyResponse>, Status> {
-            println!("Got a request: {:?}", request);
+            println!("(is_ready MOCK) Got a request: {:?}", request);
             let reply = grpc_server::ReadyResponse { ready: true };
             Ok(Response::new(reply))
         }
@@ -238,7 +238,7 @@ mod tests {
             &self,
             request: Request<grpc_server::ReadyRequest>,
         ) -> Result<Response<grpc_server::ReadyResponse>, Status> {
-            println!("Got a request: {:?}", request);
+            println!("(is_ready MOCK) Got a request: {:?}", request);
             Err(Status::internal("Mock not ready."))
         }
     }

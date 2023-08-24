@@ -1,25 +1,25 @@
-# Concept of Operations - `lib-FIXME`
+![Arrow Banner](https://github.com/Arrow-air/tf-github/raw/main/src/templates/doc-banner-services.png)
 
-<center>
-<img src="https://github.com/Arrow-air/tf-github/raw/main/src/templates/doc-banner-services.png"/>
-</center>
+# Concept of Operations - `lib-common`
 
-Attribute | Description
---- | ---
-Maintainer | [@Arrow-air/services](https://github.com/orgs/Arrow-air/teams)
-Status | Draft
-  
-## Overview
+## :telescope: Overview
 
 Common library providing commonly used functionality for the Arrow Services.
 
-## Related Documents
+### Metadata
+
+| Attribute     | Description                                                       |
+| ------------- |-------------------------------------------------------------------|
+| Maintainer(s) | [Services Team](https://github.com/orgs/Arrow-air/teams/services) |
+| Status        | Development                                                       |
+
+## :books: Related Documents
 
 Document | Description
 --- | ---
 [High-Level Concept of Operations (CONOPS)](https://github.com/Arrow-air/se-services/blob/develop/docs/conops.md) | Overview of Arrow microservices.
 
-## Motivation
+## :raised_hands: Motivation
 
 The development of microservices-based applications has become increasingly popular due to its scalability, flexibility, and modularity.
 However, as the number of microservices grows, managing common functionalities across these services becomes a challenge.

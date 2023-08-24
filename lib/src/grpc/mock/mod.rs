@@ -20,9 +20,9 @@ use tower::Service;
 ///
 /// async fn start() {
 ///     let service = GrpcMockImpl::default();
-///     let shutdown_tx = start_server("0.0.0.0:50051", MockServer::new(service)).await.expect("Could not start server.");
+///     let shutdown_tx = start_server("0.0.0.0:50051", MockServer::new(service)).await.expect("(start) Could not start server.");
 ///     // send server shutdown signal
-///     shutdown_tx.send(()).expect("Unable to shutdown server");
+///     shutdown_tx.send(()).expect("(start) Unable to shutdown server");
 /// }
 ///
 /// #[derive(Default, Debug, Clone, Copy)]
@@ -34,7 +34,7 @@ use tower::Service;
 ///         &self,
 ///         request: tonic::Request<ReadyRequest>,
 ///     ) -> Result<tonic::Response<ReadyResponse>, tonic::Status> {
-///         println!("Got a request: {:?}", request);
+///         println!("(is_ready MOCK) Got a request: {:?}", request);
 ///         let reply = ReadyResponse { ready: true };
 ///         Ok(tonic::Response::new(reply))
 ///     }
@@ -52,7 +52,7 @@ where
         + 'static,
     S::Future: Send + 'static,
 {
-    println!("Starting server on {}", addr);
+    println!("(start_server) Starting server on {}", addr);
 
     // Create channels to send shutdown event
     let (shutdown_tx, shutdown_rx) = oneshot::channel::<()>();
@@ -60,7 +60,7 @@ where
     let addr = match addr.parse() {
         Ok(addr) => Ok(addr),
         Err(e) => {
-            println!("Parse error: {e}");
+            eprintln!("(start_server) Parse error: {e}");
             Err(e)
         }
     }?;
@@ -73,7 +73,7 @@ where
             });
 
         if let Err(err) = server.await {
-            eprintln!("server error: {:?}", err);
+            eprintln!("(start_server) Server error: {:?}", err);
             panic!("error");
         }
     });
@@ -121,7 +121,7 @@ where
 ///         &self,
 ///         request: tonic::Request<ReadyRequest>,
 ///     ) -> Result<tonic::Response<ReadyResponse>, tonic::Status> {
-///         println!("Got a request: {:?}", request);
+///         println!("(is_ready MOCK) Got a request: {:?}", request);
 ///         let reply = ReadyResponse { ready: true };
 ///         Ok(tonic::Response::new(reply))
 ///     }
@@ -139,7 +139,7 @@ where
         + 'static,
     S::Future: Send + 'static,
 {
-    println!("Starting server on {:?}", server);
+    println!("(start_mock_server) Starting server on {:?}", server);
 
     tokio::spawn(async move {
         tonic::transport::Server::builder()
@@ -218,7 +218,7 @@ mod tests {
             &self,
             request: tonic::Request<mock_server::ReadyRequest>,
         ) -> Result<tonic::Response<ReadyResponse>, tonic::Status> {
-            println!("Got a request: {:?}", request);
+            println!("(is_ready MOCK) Got a request: {:?}", request);
             let reply = ReadyResponse { ready: true };
             Ok(tonic::Response::new(reply))
         }
