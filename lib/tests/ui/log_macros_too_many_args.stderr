@@ -1,0 +1,5 @@
+error: log_macros expects either one or two arguments
+ --> tests/ui/log_macros_too_many_args.rs:5:13
+  |
+5 | log_macros!("one", "two", "three");
+  |             ^^^^^^^^^^^^^^^^^^^^^

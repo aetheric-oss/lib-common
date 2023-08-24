@@ -20,3 +20,9 @@ nanos
 datetime
 subsec
 prost
+logtest
+trybuild
+codegen
+oneshot
+rgba
+Struct

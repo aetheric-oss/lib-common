@@ -1,0 +1,48 @@
+[package]
+description = "Arrow Services Common library"
+keywords    = ["vtol", "lib", "common"]       # max 5
+name        = "lib-common"
+version     = "0.1.1-develop.3"
+
+categories.workspace   = true
+edition.workspace      = true
+homepage.workspace     = true
+license-file.workspace = true
+repository.workspace   = true
+
+[dependencies]
+arrow-macros-derive = { path = "../arrow-macros/derive" }
+cargo-husky         = "1"
+chrono              = { version = "0.4", features = ["serde"] }
+futures             = { version = "0.3", optional = true }
+http                = { version = "0.2", optional = true }
+hyper               = { version = "0.14", optional = true }
+log                 = { version = "0.4", optional = true }
+prost               = { version = "0.11", optional = true }
+prost-types         = "0.11"
+tonic               = { version = "0.8", optional = true, features = ["gzip"] }
+tower               = { version = "0.4", optional = true }
+trybuild            = "1.0"
+
+[dependencies.tokio]
+features = ["macros", "rt-multi-thread", "sync", "fs", "signal", "full"]
+optional = true
+version  = "1.28"
+
+[dev-dependencies]
+lib-common = { path = ".", features = ["grpc", "grpc_mock"] }
+log        = "0.4"
+logtest    = "2.0"
+spectral   = "0.6"
+
+[dev-dependencies.cargo-husky]
+default-features = false          # Disable features which are enabled by default
+features         = ["user-hooks"]
+version          = "1"
+
+[lib]
+name = "lib_common"
+
+[features]
+grpc      = ["tonic", "futures", "log", "prost"]
+grpc_mock = ["grpc", "tokio", "tower", "http", "hyper"]
