@@ -18,16 +18,16 @@ futures             = { version = "0.3", optional = true }
 http                = { version = "0.2", optional = true }
 hyper               = { version = "0.14", optional = true }
 log                 = { version = "0.4", optional = true }
-prost               = { version = "0.11", optional = true }
-prost-types         = "0.11"
-tonic               = { version = "0.8", optional = true, features = ["gzip"] }
+prost               = { version = "0.12", optional = true }
+prost-types         = "0.12"
+tonic               = { version = "0.10", optional = true, features = ["gzip"] }
 tower               = { version = "0.4", optional = true }
 trybuild            = "1.0"
 
 [dependencies.tokio]
 features = ["macros", "rt-multi-thread", "sync", "fs", "signal", "full"]
 optional = true
-version  = "1.28"
+version  = "1.33"
 
 [dev-dependencies]
 lib-common = { path = ".", features = ["grpc", "grpc_mock"] }
