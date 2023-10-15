@@ -19,7 +19,7 @@ http                = { version = "0.2", optional = true }
 hyper               = { version = "0.14", optional = true }
 log                 = { version = "0.4", optional = true }
 prost               = { version = "0.12", optional = true }
-prost-types         = "0.12"
+prost-wkt-types     = "0.5"
 tonic               = { version = "0.10", optional = true, features = ["gzip"] }
 tower               = { version = "0.4", optional = true }
 trybuild            = "1.0"
