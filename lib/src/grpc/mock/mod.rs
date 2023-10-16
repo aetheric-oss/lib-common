@@ -241,7 +241,7 @@ mod tests {
         let client: GrpcClient<MockClient<Channel>> =
             GrpcClient::new_client(server_host, server_port, name);
 
-        let connection = client.get_client().await;
+        let connection = client.get_client(1).await;
         println!("{:?}", connection);
         assert!(connection.is_ok());
 

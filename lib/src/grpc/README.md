@@ -33,7 +33,7 @@ async fn example() -> Result<(), Box<dyn std::error::Error>> {
     );
 
     // Get a client connection
-    let mut connection = grpc_client.get_client().await?;
+    let mut connection = grpc_client.get_client(1).await?;
 
     // Call the gRPC functions
     let result = connection.is_ready(Request::new(ReadyRequest {})).await?;

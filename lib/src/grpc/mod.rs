@@ -21,60 +21,65 @@ use log::{debug as grpc_debug, error as grpc_error, info as grpc_info, warn as g
 #[async_trait]
 pub trait ClientConnect<T>
 where
-    Self: Sized + Client<T>,
+    Self: Sized + Client<T> + Sync,
     T: Send + Clone,
 {
     /// wrapper for gRPC client connect function
     async fn connect(&self) -> Result<T, tonic::transport::Error>;
 
     /// Get a copy of the connected client
-    async fn get_client(&self) -> Result<T, Status> {
-        grpc_info!("(get_client) {} entry.", self.get_name());
-
-        let arc = Arc::clone(self.get_inner());
-        let mut client_option = arc.lock().await;
-
-        // if already connected, return the client, else, try connect
-        match &mut *client_option {
-            Some(client) => {
-                grpc_debug!(
-                    "(get_client) already connected to {} server at {}. Returning cloned client.",
-                    self.get_name(),
-                    self.get_address()
-                );
-                Ok(client.clone())
+    fn get_client<'a>(
+        &'a self,
+        retries: i16,
+    ) -> std::pin::Pin<Box<dyn std::future::Future<Output = Result<T, Status>> + Send + 'a>> {
+        Box::pin(async move {
+            grpc_info!("(get_client) {} entry.", self.get_name());
+            if retries <= 0 {
+                return Err(Status::internal(
+                    "Error connecting to the gRPC clients, giving up",
+                ));
             }
-            None => {
-                grpc_warn!("(get_client) client not connected yet.");
-                grpc_info!(
-                    "(get_client) connecting to {} server at {}.",
-                    self.get_name(),
-                    self.get_address()
-                );
 
-                match self.connect().await {
-                    Ok(client) => {
-                        grpc_info!(
-                            "(get_client) success: connected to {} server at {}.",
-                            self.get_name(),
-                            self.get_address()
-                        );
-                        *client_option = Some(client.clone());
-                        Ok(client)
-                    }
-                    Err(e) => {
-                        let error = format!(
-                            "(get_client) couldn't connect to {} server at {}; {}.",
-                            self.get_name(),
-                            self.get_address(),
-                            e
-                        );
-                        grpc_error!("(get_client) {}", error);
-                        Err(Status::internal(error))
+            let arc = Arc::clone(self.get_inner());
+            let mut client_option = arc.lock().await;
+
+            match &mut *client_option {
+                Some(client) => {
+                    grpc_debug!("(get_client) already connected to {} server at {}. Returning cloned client.", self.get_name(), self.get_address());
+                    Ok(client.clone())
+                }
+                None => {
+                    grpc_warn!("(get_client) client not connected yet.");
+                    grpc_info!(
+                        "(get_client) connecting to {} server at {}.",
+                        self.get_name(),
+                        self.get_address()
+                    );
+
+                    match self.connect().await {
+                        Ok(client) => {
+                            grpc_info!(
+                                "(get_client) success: connected to {} server at {}.",
+                                self.get_name(),
+                                self.get_address()
+                            );
+                            *client_option = Some(client.clone());
+                            Ok(client)
+                        }
+                        Err(e) => {
+                            let error = format!(
+                                "(get_client) couldn't connect to {} server at {}; {}.",
+                                self.get_name(),
+                                self.get_address(),
+                                e
+                            );
+                            grpc_error!("{}", error);
+                            self.get_client(retries - 1).await
+                        }
                     }
                 }
             }
-        }
+        })
     }
 }
 
@@ -311,7 +316,7 @@ mod tests {
 
         // First time get_client, should create a new connection
         // See if we can send a request
-        let result = mock_client.get_client().await;
+        let result = mock_client.get_client(1).await;
         assert!(result.is_ok());
 
         // See if we can send a request
@@ -354,7 +359,7 @@ mod tests {
 
         // First time get_client, should create a new connection
         // See if we can send a request
-        let result = mock_client.get_client().await;
+        let result = mock_client.get_client(1).await;
         assert!(result.is_ok());
 
         // See if we can send a request
@@ -366,7 +371,7 @@ mod tests {
         assert!(result.is_ok());
 
         // Second time get_client, should already be connected
-        let client = mock_client.get_client().await;
+        let client = mock_client.get_client(1).await;
         assert!(client.is_ok());
 
         // See if we can send a request
@@ -383,7 +388,7 @@ mod tests {
         tokio::time::sleep(tokio::time::Duration::from_millis(1000)).await;
 
         // Third time get_client, should not be connected
-        let client = mock_client.get_client().await;
+        let client = mock_client.get_client(1).await;
         assert!(client.is_ok());
         // See if we get an error when server unreachable
         let result = client
@@ -405,7 +410,7 @@ mod tests {
         let shutdown_tx = server_started.unwrap();
 
         // Fourth time get_client, should be connected again
-        let client = mock_client.get_client().await;
+        let client = mock_client.get_client(1).await;
         assert!(client.is_ok());
         // See if we get an answer from the server again
         let result = client
