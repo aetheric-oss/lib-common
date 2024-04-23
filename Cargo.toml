@@ -1,5 +1,6 @@
 [workspace]
-members = ["lib", "arrow-macros/core", "arrow-macros/derive"]
+members  = ["lib", "arrow-macros/core", "arrow-macros/derive"]
+resolver = "2"
 
 [workspace.package]
 edition      = "2021"
