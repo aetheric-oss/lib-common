@@ -23,6 +23,7 @@ prost-wkt-types     = "0.5"
 tonic               = { version = "0.10", optional = true, features = ["gzip"] }
 tower               = { version = "0.4", optional = true }
 trybuild            = "1.0"
+uuid                = { version = "1.8.0", features = ["v4", "serde"] }
 
 [dependencies.tokio]
 features = ["macros", "rt-multi-thread", "sync", "fs", "signal", "full"]
