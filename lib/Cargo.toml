@@ -17,22 +17,21 @@ chrono              = { version = "0.4", features = ["serde"] }
 futures             = { version = "0.3", optional = true }
 http                = { version = "0.2", optional = true }
 hyper               = { version = "0.14", optional = true }
-log                 = { version = "0.4", optional = true }
+log                 = { version = "0.4" }
+log4rs              = "1.3"
 prost               = { version = "0.12", optional = true }
 prost-wkt-types     = "0.5"
 tonic               = { version = "0.10", optional = true, features = ["gzip"] }
 tower               = { version = "0.4", optional = true }
 trybuild            = "1.0"
-uuid                = { version = "1.8.0", features = ["v4", "serde"] }
+uuid                = { version = "1.8", features = ["v4", "serde"] }
 
 [dependencies.tokio]
 features = ["macros", "rt-multi-thread", "sync", "fs", "signal", "full"]
-optional = true
 version  = "1.33"
 
 [dev-dependencies]
 lib-common = { path = ".", features = ["grpc", "grpc_mock"] }
-log        = "0.4"
 logtest    = "2.0"
 spectral   = "0.6"
 
@@ -45,5 +44,5 @@ version          = "1"
 name = "lib_common"
 
 [features]
-grpc      = ["tonic", "futures", "log", "prost"]
-grpc_mock = ["grpc", "tokio", "tower", "http", "hyper"]
+grpc      = ["tonic", "futures", "prost"]
+grpc_mock = ["grpc", "tower", "http", "hyper"]

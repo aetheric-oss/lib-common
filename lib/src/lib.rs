@@ -2,6 +2,7 @@
 
 #[cfg(any(feature = "grpc", test))]
 pub mod grpc;
+pub mod logger;
 pub mod time;
 pub mod uuid;
 
