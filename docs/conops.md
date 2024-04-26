@@ -1,23 +1,23 @@
-![Arrow Banner](https://github.com/Arrow-air/tf-github/raw/main/src/templates/doc-banner-services.png)
+![Aetheric Banner](https://github.com/Arrow-air/tf-github/raw/main/src/templates/doc-banner-services.png)
 
 # Concept of Operations - `lib-common`
 
 ## :telescope: Overview
 
-Common library providing commonly used functionality for the Arrow Services.
+Common library providing commonly used functionality for the Aetheric Services.
 
 ### Metadata
 
 | Attribute     | Description                                                       |
 | ------------- |-------------------------------------------------------------------|
-| Maintainer(s) | [Services Team](https://github.com/orgs/Arrow-air/teams/services) |
+| Maintainer(s) | [Realm Team](https://github.com/orgs/aetheric-oss/teams/dev-realm) |
 | Status        | Development                                                       |
 
 ## :books: Related Documents
 
 Document | Description
 --- | ---
-[High-Level Concept of Operations (CONOPS)](https://github.com/Arrow-air/se-services/blob/develop/docs/conops.md) | Overview of Arrow microservices.
+[High-Level Concept of Operations (CONOPS)](https://github.com/aetheric-oss/se-services/blob/develop/docs/conops.md) | Overview of Arrow microservices.
 
 ## :raised_hands: Motivation
 
