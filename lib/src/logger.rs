@@ -4,6 +4,8 @@ use tokio::sync::OnceCell;
 
 /// Initialized log4rs handle
 static LOG_HANDLE: OnceCell<Option<log4rs::Handle>> = OnceCell::const_new();
+
+/// Obtain the log handle for unit test purposes
 pub async fn get_log_handle() -> Option<log4rs::Handle> {
     LOG_HANDLE
         .get_or_init(|| async move {
