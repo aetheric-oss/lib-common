@@ -70,4 +70,16 @@ mod tests {
 
         ut_info!("(test_config_from_env) Success.");
     }
+
+    #[tokio::test]
+    async fn test_load_logger_invalid_config() {
+        get_log_handle().await;
+        ut_info!("(test_config_from_env) Start.");
+
+        let result =
+            load_logger_config_from_file("/usr/src/app/lib/tests/invalid_log4rs.yaml").await;
+        ut_debug!("(test_config_from_env) {:?}", result);
+        let result = result.unwrap_err();
+        assert!(result.contains("Could not parse log config file"));
+    }
 }

@@ -61,3 +61,56 @@ fn test_log_macro_default_prefix() {
     let output = log_macros_core(input.into());
     assert_tokens_eq(&output, &expected_output);
 }
+
+#[test]
+#[should_panic]
+fn test_log_macros_core_empty() {
+    let input = TokenStream::new();
+    log_macros_core(input);
+}
+
+#[test]
+#[should_panic]
+fn test_log_macros_core_parse_too_many_args() {
+    let input = quote!("too", "many", "args");
+    let result = log_macros_core(input);
+    assert_tokens_eq(&result, &quote!());
+}
+
+#[test]
+fn test_log_macros_core_two_args() {
+    let input = quote!("example", "hello");
+
+    let expected_output = quote!(
+        #[doc = concat!("Writes a ", stringify!(debug), "! message to the `", "hello", "::", "example", "` logger")]
+        #[macro_export]
+        macro_rules! example_debug {
+            ($($arg:tt)+) => {
+                log::debug!(target: concat!("hello", "::", "example"), $($arg)+)
+            };
+        }
+        #[doc = concat!("Writes a ", stringify!(info), "! message to the `", "hello", "::", "example", "` logger")]
+        #[macro_export]
+        macro_rules! example_info {
+            ($($arg:tt)+) => {
+                log::info!(target: concat!("hello", "::", "example"), $($arg)+)
+            };
+        }
+        #[doc = concat!("Writes a ", stringify!(warn), "! message to the `", "hello", "::", "example", "` logger")]
+        #[macro_export]
+        macro_rules! example_warn {
+            ($($arg:tt)+) => {
+                log::warn!(target: concat!("hello", "::", "example"), $($arg)+)
+            };
+        }
+        #[doc = concat!("Writes a ", stringify!(error), "! message to the `", "hello", "::", "example", "` logger")]
+        #[macro_export]
+        macro_rules! example_error {
+            ($($arg:tt)+) => {
+                log::error!(target: concat!("hello", "::", "example"), $($arg)+)
+            };
+        }
+    );
+    let output = log_macros_core(input.into());
+    assert_tokens_eq(&output, &expected_output);
+}

@@ -1,4 +1,4 @@
-![Aetheric Banner](https://github.com/Arrow-air/tf-github/raw/main/src/templates/doc-banner-services.png)
+![Aetheric Banner](https://github.com/aetheric-oss/.github/blob/main/assets/readme-banner.png)
 
 # `lib-common` Library
 
