@@ -1,4 +1,7 @@
 //! Time-Related Types
 
-pub use chrono::{DateTime, NaiveDateTime, TimeZone, Utc};
+pub use chrono::{
+    naive::{NaiveDate, NaiveDateTime},
+    DateTime, Duration, TimeZone, Timelike, Utc,
+};
 pub use prost_wkt_types::Timestamp;
