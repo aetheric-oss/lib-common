@@ -33,28 +33,64 @@ fn test_log_macro_default_prefix() {
         #[macro_export]
         macro_rules! example_debug {
             ($($arg:tt)+) => {
-                log::debug!(target: concat!("app", "::", "example"), $($arg)+)
+                let content = format!($($arg)+);
+                let name = {
+                    fn f() {}
+                    fn type_name_of<T>(_: T) -> &'static str {
+                        std::any::type_name::<T>()
+                    }
+                    let name = type_name_of(f);
+                    name.strip_suffix("::f").unwrap_or("error_removing_suffix")
+                };
+                log::debug!(target: concat!("app", "::", "example"), "({}) {}", name, content)
             };
         }
         #[doc = concat!("Writes a ", stringify!(info), "! message to the `", "app", "::", "example", "` logger")]
         #[macro_export]
         macro_rules! example_info {
             ($($arg:tt)+) => {
-                log::info!(target: concat!("app", "::", "example"), $($arg)+)
+                let content = format!($($arg)+);
+                let name = {
+                    fn f() {}
+                    fn type_name_of<T>(_: T) -> &'static str {
+                        std::any::type_name::<T>()
+                    }
+                    let name = type_name_of(f);
+                    name.strip_suffix("::f").unwrap_or("error_removing_suffix")
+                };
+                log::info!(target: concat!("app", "::", "example"), "({}) {}", name, content)
             };
         }
         #[doc = concat!("Writes a ", stringify!(warn), "! message to the `", "app", "::", "example", "` logger")]
         #[macro_export]
         macro_rules! example_warn {
             ($($arg:tt)+) => {
-                log::warn!(target: concat!("app", "::", "example"), $($arg)+)
+                let content = format!($($arg)+);
+                let name = {
+                    fn f() {}
+                    fn type_name_of<T>(_: T) -> &'static str {
+                        std::any::type_name::<T>()
+                    }
+                    let name = type_name_of(f);
+                    name.strip_suffix("::f").unwrap_or("error_removing_suffix")
+                };
+                log::warn!(target: concat!("app", "::", "example"), "({}) {}", name, content)
             };
         }
         #[doc = concat!("Writes a ", stringify!(error), "! message to the `", "app", "::", "example", "` logger")]
         #[macro_export]
         macro_rules! example_error {
             ($($arg:tt)+) => {
-                log::error!(target: concat!("app", "::", "example"), $($arg)+)
+                let content = format!($($arg)+);
+                let name = {
+                    fn f() {}
+                    fn type_name_of<T>(_: T) -> &'static str {
+                        std::any::type_name::<T>()
+                    }
+                    let name = type_name_of(f);
+                    name.strip_suffix("::f").unwrap_or("error_removing_suffix")
+                };
+                log::error!(target: concat!("app", "::", "example"), "({}) {}", name, content)
             };
         }
     );
@@ -86,28 +122,64 @@ fn test_log_macros_core_two_args() {
         #[macro_export]
         macro_rules! example_debug {
             ($($arg:tt)+) => {
-                log::debug!(target: concat!("hello", "::", "example"), $($arg)+)
+                let content = format!($($arg)+);
+                let name = {
+                    fn f() {}
+                    fn type_name_of<T>(_: T) -> &'static str {
+                        std::any::type_name::<T>()
+                    }
+                    let name = type_name_of(f);
+                    name.strip_suffix("::f").unwrap_or("error_removing_suffix")
+                };
+                log::debug!(target: concat!("hello", "::", "example"), "({}) {}", name, content)
             };
         }
         #[doc = concat!("Writes a ", stringify!(info), "! message to the `", "hello", "::", "example", "` logger")]
         #[macro_export]
         macro_rules! example_info {
             ($($arg:tt)+) => {
-                log::info!(target: concat!("hello", "::", "example"), $($arg)+)
+                let content = format!($($arg)+);
+                let name = {
+                    fn f() {}
+                    fn type_name_of<T>(_: T) -> &'static str {
+                        std::any::type_name::<T>()
+                    }
+                    let name = type_name_of(f);
+                    name.strip_suffix("::f").unwrap_or("error_removing_suffix")
+                };
+                log::info!(target: concat!("hello", "::", "example"), "({}) {}", name, content)
             };
         }
         #[doc = concat!("Writes a ", stringify!(warn), "! message to the `", "hello", "::", "example", "` logger")]
         #[macro_export]
         macro_rules! example_warn {
             ($($arg:tt)+) => {
-                log::warn!(target: concat!("hello", "::", "example"), $($arg)+)
+                let content = format!($($arg)+);
+                let name = {
+                    fn f() {}
+                    fn type_name_of<T>(_: T) -> &'static str {
+                        std::any::type_name::<T>()
+                    }
+                    let name = type_name_of(f);
+                    name.strip_suffix("::f").unwrap_or("error_removing_suffix")
+                };
+                log::warn!(target: concat!("hello", "::", "example"), "({}) {}", name, content)
             };
         }
         #[doc = concat!("Writes a ", stringify!(error), "! message to the `", "hello", "::", "example", "` logger")]
         #[macro_export]
         macro_rules! example_error {
             ($($arg:tt)+) => {
-                log::error!(target: concat!("hello", "::", "example"), $($arg)+)
+                let content = format!($($arg)+);
+                let name = {
+                    fn f() {}
+                    fn type_name_of<T>(_: T) -> &'static str {
+                        std::any::type_name::<T>()
+                    }
+                    let name = type_name_of(f);
+                    name.strip_suffix("::f").unwrap_or("error_removing_suffix")
+                };
+                log::error!(target: concat!("hello", "::", "example"), "({}) {}", name, content)
             };
         }
     );
