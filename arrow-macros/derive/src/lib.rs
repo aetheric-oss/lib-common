@@ -17,7 +17,7 @@ use proc_macro_error::proc_macro_error;
 #[proc_macro_error]
 #[proc_macro]
 #[cfg(not(tarpaulin_include))]
-// no_coverage: proc_macro's can not be tested, using log_macros_core for that
+// no_coverage: (R5) proc_macro's cannot be tested, using log_macros_core for that
 pub fn log_macros(input: TokenStream) -> TokenStream {
     log_macros_core(input.into()).into()
 }
