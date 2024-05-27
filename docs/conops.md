@@ -17,7 +17,7 @@ Common library providing commonly used functionality for the Aetheric Services.
 
 Document | Description
 --- | ---
-[High-Level Concept of Operations (CONOPS)](https://github.com/aetheric-oss/se-services/blob/develop/docs/conops.md) | Overview of Arrow microservices.
+[High-Level Concept of Operations (CONOPS)](https://github.com/aetheric-oss/se-services/blob/develop/docs/conops.md) | Overview of Aetheric microservices.
 
 ## :raised_hands: Motivation
 

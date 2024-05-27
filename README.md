@@ -12,7 +12,7 @@
 
 ## :telescope: Overview
 
-Common functions and data types across the Arrow microservices.
+Common functions and data types across the Aetheric microservices.
 
 Directory:
 - `src/`: Source Code and Unit Tests
