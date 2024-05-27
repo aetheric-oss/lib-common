@@ -1,5 +1,5 @@
 [package]
-description = "Arrow Services Common Proc Macros"
+description = "Aetheric Services Common Proc Macros"
 keywords    = ["vtol", "lib", "common"]           # max 5
 name        = "arrow-macros-derive"
 version     = "0.2.0"

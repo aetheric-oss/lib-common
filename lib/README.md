@@ -13,7 +13,7 @@ Discord](https://img.shields.io/discord/853833144037277726?style=plastic)
 
 ## Overview
 
-Common functions and data types across the Arrow microservices.
+Common functions and data types across the Aetheric microservices.
 
 ### Feature flags
 

@@ -1,5 +1,5 @@
 [package]
-description = "Arrow Services Common library"
+description = "Aetheric Services Common library"
 keywords    = ["vtol", "lib", "common"]       # max 5
 name        = "lib-common"
 version     = "0.2.0"
