@@ -25,62 +25,32 @@ fn log_test() {
         }
 
         test1_debug!("debug");
-        assert_eq!(
-            logger.pop().unwrap().args(),
-            "(integration_test::log_test) debug"
-        );
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) debug");
         test1_debug!("debug {}", "param");
-        assert_eq!(
-            logger.pop().unwrap().args(),
-            "(integration_test::log_test) debug param"
-        );
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) debug param");
 
         test1_error!("error");
-        assert_eq!(
-            logger.pop().unwrap().args(),
-            "(integration_test::log_test) error"
-        );
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) error");
         test1_error!("error {}", "param");
-        assert_eq!(
-            logger.pop().unwrap().args(),
-            "(integration_test::log_test) error param"
-        );
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) error param");
 
         test1_info!("info");
-        assert_eq!(
-            logger.pop().unwrap().args(),
-            "(integration_test::log_test) info"
-        );
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) info");
 
         test1_warn!("warn");
-        assert_eq!(
-            logger.pop().unwrap().args(),
-            "(integration_test::log_test) warn"
-        );
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) warn");
 
         test2_debug!("debug {}", "test");
-        assert_eq!(
-            logger.pop().unwrap().args(),
-            "(integration_test::log_test) debug test"
-        );
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) debug test");
 
         test2_error!("error");
-        assert_eq!(
-            logger.pop().unwrap().args(),
-            "(integration_test::log_test) error"
-        );
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) error");
 
         test2_info!("info");
-        assert_eq!(
-            logger.pop().unwrap().args(),
-            "(integration_test::log_test) info"
-        );
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) info");
 
         test2_warn!("warn");
-        assert_eq!(
-            logger.pop().unwrap().args(),
-            "(integration_test::log_test) warn"
-        );
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) warn");
     }
 
     // test_get_endpoint_from_env_with_defaults
@@ -91,15 +61,15 @@ fn log_test() {
         let _ = logger.pop();
         assert_eq!(
             logger.pop().unwrap().args(),
-            "(lib_common::grpc::get_endpoint_from_env) GRPC_HOST undefined, using default [localhost]."
+            "(get_endpoint_from_env) GRPC_HOST undefined, using default [localhost]."
         );
         assert_eq!(
             logger.pop().unwrap().args(),
-            "(lib_common::grpc::get_endpoint_from_env) GRPC_PORT undefined, using default [50051]."
+            "(get_endpoint_from_env) GRPC_PORT undefined, using default [50051]."
         );
         assert_eq!(
             logger.pop().unwrap().args(),
-            "(lib_common::grpc::get_endpoint_from_env) host [localhost], port [50051]."
+            "(get_endpoint_from_env) host [localhost], port [50051]."
         );
     }
 
@@ -111,7 +81,7 @@ fn log_test() {
         let _ = logger.pop();
         assert_eq!(
             logger.pop().unwrap().args(),
-            "(lib_common::grpc::get_endpoint_from_env) host [custom_host], port [50055]."
+            "(get_endpoint_from_env) host [custom_host], port [50055]."
         );
     }
 
@@ -122,11 +92,11 @@ fn log_test() {
         let _ = logger.pop();
         assert_eq!(
             logger.pop().unwrap().args(),
-            "(lib_common::grpc::get_endpoint_from_env) GRPC_PORT is not a valid u16 type, using default [50051]."
+            "(get_endpoint_from_env) GRPC_PORT is not a valid u16 type, using default [50051]."
         );
         assert_eq!(
             logger.pop().unwrap().args(),
-            "(lib_common::grpc::get_endpoint_from_env) host [custom_host], port [50051]."
+            "(get_endpoint_from_env) host [custom_host], port [50051]."
         );
     }
 }

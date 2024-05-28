@@ -9,7 +9,7 @@ const UUID_SIZE: usize = 36; // 32 digits, 4 hyphens
 pub fn to_uuid(s: &str) -> Option<Uuid> {
     // Prevent buffer overflows
     if s.len() != UUID_SIZE {
-        // rest_error!("(is_uuid) input string incorrect size: {} (expected {UUID_SIZE}).", s.len());
+        // rest_error!("input string incorrect size: {} (expected {UUID_SIZE}).", s.len());
         return None;
     }
 
