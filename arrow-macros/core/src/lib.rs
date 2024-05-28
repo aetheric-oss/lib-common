@@ -56,18 +56,24 @@ pub fn log_macros_core(input: TokenStream) -> TokenStream {
             #[doc = concat!("Writes a ", stringify!(#level), "! message to the `", #log_prefix, "::", #log_type, "` logger")]
             #[macro_export]
             macro_rules! #macro_name {
-                ($($arg:tt)+) => {
+                ($($arg:tt)+) => {{
                     let content = format!($($arg)+);
-                    let name = {
+                    let name: &str = {{
                         fn f() {}
+
                         fn type_name_of<T>(_: T) -> &'static str {
                             std::any::type_name::<T>()
                         }
-                        let name = type_name_of(f);
-                        name.strip_suffix("::f").unwrap_or("error_removing_suffix")
-                    };
-                    log::#level!(target: concat!(#log_prefix, "::", #log_type), "({}) {}", name, content)
-                };
+
+                        type_name_of(f) // mod::path::target_function::f
+                            .trim_end_matches("::f") // mod::path::target_function
+                            .trim_end_matches(r#"::{{closure}}"#) // if {{closure}} is in the path
+                            .split("::") // ["mod", "path", "target_function"]
+                            .last() // "target_function"
+                            .unwrap_or("unknown_function")
+                    }};
+                    log::#level!(target: concat!(#log_prefix, "::", #log_type), "({name}) {}", content)
+                }};
             }
         }
     });

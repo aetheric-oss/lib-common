@@ -41,7 +41,7 @@ pub async fn load_logger_config_from_file(config_file: &str) -> Result<(), Strin
     let config =
         log4rs::config::load_config_file(config_file, Default::default()).map_err(|e| {
             format!(
-                "(logger) Could not parse log config file [{}]: {}.",
+                "(load_logger_config_from_file) Could not parse log config file [{}]: {}.",
                 config_file, e,
             )
         })?;
@@ -59,26 +59,26 @@ mod tests {
     #[tokio::test]
     async fn test_load_logger_config_from_file() {
         get_log_handle().await;
-        ut_info!("(test_config_from_env) Start.");
+        ut_info!("Start.");
 
         let result = load_logger_config_from_file("/usr/src/app/lib/tests/log4rs.yaml").await;
-        ut_debug!("(test_config_from_env) {:?}", result);
+        ut_debug!("{:?}", result);
         assert!(result.is_ok());
 
         // This message should be written to file
-        ut_error!("(test_config_from_env) Testing log config from file. This should be written to the tests.log file.");
+        ut_error!("Testing log config from file. This should be written to the tests.log file.");
 
-        ut_info!("(test_config_from_env) Success.");
+        ut_info!("Success.");
     }
 
     #[tokio::test]
     async fn test_load_logger_invalid_config() {
         get_log_handle().await;
-        ut_info!("(test_config_from_env) Start.");
+        ut_info!("Start.");
 
         let result =
             load_logger_config_from_file("/usr/src/app/lib/tests/invalid_log4rs.yaml").await;
-        ut_debug!("(test_config_from_env) {:?}", result);
+        ut_debug!("{:?}", result);
         let result = result.unwrap_err();
         assert!(result.contains("Could not parse log config file"));
     }
