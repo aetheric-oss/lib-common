@@ -74,7 +74,7 @@ where
 
         if let Err(err) = server.await {
             eprintln!("(start_server) Server error: {:?}", err);
-            panic!("error");
+            panic!("(start_server) error: {:?}", err);
         }
     });
 

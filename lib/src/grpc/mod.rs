@@ -64,10 +64,9 @@ where
                     }
                     Err(e) => {
                         let error = format!(
-                            "couldn't connect to {} server at {}; {}.",
+                            "couldn't connect to {} server at {}; {e}.",
                             self.get_name(),
                             self.get_address(),
-                            e
                         );
                         grpc_error!("{}", error);
                         Err(Status::internal(error))
@@ -237,6 +236,8 @@ mod tests {
         }
     }
 
+    #[cfg(not(tarpaulin_include))]
+    // no_coverage: (R5) helper trait for tests
     impl PartialEq for MockClient<Channel> {
         fn eq(&self, other: &Self) -> bool {
             self == other
@@ -342,6 +343,12 @@ mod tests {
         assert!(server_started.is_ok());
         grpc_info!("Server started");
         let shutdown_tx = server_started.unwrap();
+
+        // invalid host, fail to connect
+        let mock_client: GrpcClient<MockClient<Channel>> =
+            GrpcClient::new_client("?:><:?", server_port, name);
+        let result = mock_client.get_client().await.unwrap_err();
+        assert_eq!(result.code(), tonic::Code::Internal);
 
         let mock_client: GrpcClient<MockClient<Channel>> =
             GrpcClient::new_client(server_host, server_port, name);

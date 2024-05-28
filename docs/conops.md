@@ -35,9 +35,6 @@ The objectives of the library include providing high code quality and reliabilit
 The library does not have an API, but instead offers a set of Rust modules that can be included in applications as needed.
 Ultimately, the envisioned system aims to improve the efficiency and consistency of software development by providing a reliable and reusable set of common functionalities that can be easily integrated into different types of services or applications.
 
-## External Interfaces
-See the ICD for this library.
-
 ## Physical Environment
 
 See the High-Level CONOPS.
