@@ -1,6 +1,6 @@
 //! UUID utility functions
 
-pub use uuid::Uuid;
+pub use uuid::{Error, Uuid};
 
 /// Don't allow large UUID strings
 const UUID_SIZE: usize = 36; // 32 digits, 4 hyphens
