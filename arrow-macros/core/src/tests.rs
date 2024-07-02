@@ -1,6 +1,7 @@
 #![cfg(test)]
 
 use crate::log_macros_core;
+use crate::requirement_trace;
 use proc_macro2::TokenStream;
 use quote::quote;
 
@@ -233,4 +234,14 @@ fn test_log_macros_core_two_args() {
     );
     let output = log_macros_core(input.into());
     assert_tokens_eq(&output, &expected_output);
+}
+
+#[test]
+fn test_requirement_trace() {
+    requirement_trace!(
+        "L5-ETC.",
+        "12345",
+        false,
+        "This is a test message"
+    );
 }

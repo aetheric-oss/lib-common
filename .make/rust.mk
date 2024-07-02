@@ -107,6 +107,8 @@ rust-check: check-cargo-registry rust-docker-pull
 
 rust-test-features: $(EXCLUSIVE_FEATURES_TEST)
 $(EXCLUSIVE_FEATURES_TEST):
+	mkdir -p $(OUTPUTS_PATH)
+	echo "Requirement,Version,Function,Result,Explanation" > $(OUTPUTS_PATH)/matrix.csv
 	@echo "$(CYAN)Running cargo test for feature $@...$(SGR0)"
 	@$(call cargo_run,test,--features $@ --workspace)
 rust-test: check-cargo-registry rust-docker-pull rust-test-features

@@ -82,3 +82,43 @@ pub fn log_macros_core(input: TokenStream) -> TokenStream {
         #(#macro_exports)*
     }
 }
+
+/// Writes the requirement, version, test function, result and explanation to a CSV file
+#[macro_export]
+macro_rules! requirement_trace {
+    ($a:expr, $b:expr, $result:expr, $explanation:expr) => {
+        let path = "/usr/src/app/out/matrix.csv";
+
+        // this must be a boolean
+        let result = match $result {
+            true => "PASS",
+            false => "FAIL",
+        };
+
+        let mut file = std::fs::OpenOptions::new()
+            .append(true)
+            .create(true)
+            .open(path)
+            .expect("cannot open file");
+
+        let name: &str = {{
+            fn f() {}
+
+            fn type_name_of<T>(_: T) -> &'static str {
+                std::any::type_name::<T>()
+            }
+
+            type_name_of(f) // mod::path::target_function::f
+                .trim_end_matches("::f") // mod::path::target_function
+                .trim_end_matches(r#"::{{closure}}"#) // if {{closure}} is in the path
+                .split("::") // ["mod", "path", "target_function"]
+                .last() // "target_function"
+                .unwrap_or("unknown_function")
+        }};
+
+        let record = format!("{},{},{},{},{}\n", $a, $b, name, result, $explanation);
+
+        use std::io::Write;
+        let _ = file.write(&record.into_bytes());
+    }
+}
