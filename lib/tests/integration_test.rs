@@ -25,32 +25,32 @@ fn log_test() {
         }
 
         test1_debug!("debug");
-        assert_eq!(logger.pop().unwrap().args(), "debug");
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) debug");
         test1_debug!("debug {}", "param");
-        assert_eq!(logger.pop().unwrap().args(), "debug param");
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) debug param");
 
         test1_error!("error");
-        assert_eq!(logger.pop().unwrap().args(), "error");
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) error");
         test1_error!("error {}", "param");
-        assert_eq!(logger.pop().unwrap().args(), "error param");
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) error param");
 
         test1_info!("info");
-        assert_eq!(logger.pop().unwrap().args(), "info");
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) info");
 
         test1_warn!("warn");
-        assert_eq!(logger.pop().unwrap().args(), "warn");
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) warn");
 
         test2_debug!("debug {}", "test");
-        assert_eq!(logger.pop().unwrap().args(), "debug test");
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) debug test");
 
         test2_error!("error");
-        assert_eq!(logger.pop().unwrap().args(), "error");
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) error");
 
         test2_info!("info");
-        assert_eq!(logger.pop().unwrap().args(), "info");
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) info");
 
         test2_warn!("warn");
-        assert_eq!(logger.pop().unwrap().args(), "warn");
+        assert_eq!(logger.pop().unwrap().args(), "(log_test) warn");
     }
 
     // test_get_endpoint_from_env_with_defaults

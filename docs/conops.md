@@ -1,23 +1,23 @@
-![Arrow Banner](https://github.com/Arrow-air/tf-github/raw/main/src/templates/doc-banner-services.png)
+![Aetheric Banner](https://github.com/aetheric-oss/.github/blob/main/assets/doc-banner.png)
 
 # Concept of Operations - `lib-common`
 
 ## :telescope: Overview
 
-Common library providing commonly used functionality for the Arrow Services.
+Common library providing commonly used functionality for the Aetheric Services.
 
 ### Metadata
 
 | Attribute     | Description                                                       |
 | ------------- |-------------------------------------------------------------------|
-| Maintainer(s) | [Services Team](https://github.com/orgs/Arrow-air/teams/services) |
+| Maintainer(s) | [Realm Team](https://github.com/orgs/aetheric-oss/teams/dev-realm) |
 | Status        | Development                                                       |
 
 ## :books: Related Documents
 
 Document | Description
 --- | ---
-[High-Level Concept of Operations (CONOPS)](https://github.com/Arrow-air/se-services/blob/develop/docs/conops.md) | Overview of Arrow microservices.
+[High-Level Concept of Operations (CONOPS)](https://github.com/aetheric-oss/se-services/blob/develop/docs/conops.md) | Overview of Aetheric microservices.
 
 ## :raised_hands: Motivation
 
@@ -34,9 +34,6 @@ By providing a set of reusable and well-tested functions, the library aims to im
 The objectives of the library include providing high code quality and reliability, ensuring compatibility with different Rust versions, and supporting different architectures and design patterns.
 The library does not have an API, but instead offers a set of Rust modules that can be included in applications as needed.
 Ultimately, the envisioned system aims to improve the efficiency and consistency of software development by providing a reliable and reusable set of common functionalities that can be easily integrated into different types of services or applications.
-
-## External Interfaces
-See the ICD for this library.
 
 ## Physical Environment
 

@@ -29,7 +29,7 @@ where
 
     /// Get a copy of the connected client
     async fn get_client(&self) -> Result<T, Status> {
-        grpc_info!("(get_client) {} entry.", self.get_name());
+        grpc_info!("{} entry.", self.get_name());
 
         let arc = Arc::clone(self.get_inner());
         let mut client_option = arc.lock().await;
@@ -38,16 +38,16 @@ where
         match &mut *client_option {
             Some(client) => {
                 grpc_debug!(
-                    "(get_client) already connected to {} server at {}. Returning cloned client.",
+                    "already connected to {} server at {}. Returning cloned client.",
                     self.get_name(),
                     self.get_address()
                 );
                 Ok(client.clone())
             }
             None => {
-                grpc_warn!("(get_client) client not connected yet.");
+                grpc_warn!("client not connected yet.");
                 grpc_info!(
-                    "(get_client) connecting to {} server at {}.",
+                    "connecting to {} server at {}.",
                     self.get_name(),
                     self.get_address()
                 );
@@ -55,7 +55,7 @@ where
                 match self.connect().await {
                     Ok(client) => {
                         grpc_info!(
-                            "(get_client) success: connected to {} server at {}.",
+                            "success: connected to {} server at {}.",
                             self.get_name(),
                             self.get_address()
                         );
@@ -64,12 +64,11 @@ where
                     }
                     Err(e) => {
                         let error = format!(
-                            "(get_client) couldn't connect to {} server at {}; {}.",
+                            "couldn't connect to {} server at {}; {e}.",
                             self.get_name(),
                             self.get_address(),
-                            e
                         );
-                        grpc_error!("(get_client) {}", error);
+                        grpc_error!("{}", error);
                         Err(Status::internal(error))
                     }
                 }
@@ -140,15 +139,12 @@ where
 /// Returns a ([String], [i32]) host, port from provided environment variables.
 /// Returns default values (localhost, 50051) if environment variable is not found.
 pub fn get_endpoint_from_env(env_host: &str, env_port: &str) -> (String, u16) {
-    grpc_debug!("(get_endpoint_from_env) entry");
+    grpc_debug!("entry");
 
     let host = match std::env::var(env_host) {
         Ok(val) => val,
         Err(_) => {
-            grpc_error!(
-                "(get_endpoint_from_env) {} undefined, using default [localhost].",
-                env_host
-            );
+            grpc_error!("{} undefined, using default [localhost].", env_host);
             "localhost".to_string()
         }
     };
@@ -157,22 +153,19 @@ pub fn get_endpoint_from_env(env_host: &str, env_port: &str) -> (String, u16) {
             Ok(val) => val,
             Err(_) => {
                 grpc_error!(
-                    "(get_endpoint_from_env) {} is not a valid u16 type, using default [50051].",
+                    "{} is not a valid u16 type, using default [50051].",
                     env_port
                 );
                 50051
             }
         },
         Err(_) => {
-            grpc_error!(
-                "(get_endpoint_from_env) {} undefined, using default [50051].",
-                env_port
-            );
+            grpc_error!("{} undefined, using default [50051].", env_port);
             50051
         }
     };
 
-    grpc_info!("(get_endpoint_from_env) host [{}], port [{}].", host, port);
+    grpc_info!("host [{}], port [{}].", host, port);
     (host, port)
 }
 
@@ -243,6 +236,8 @@ mod tests {
         }
     }
 
+    #[cfg(not(tarpaulin_include))]
+    // no_coverage: (R5) helper trait for tests
     impl PartialEq for MockClient<Channel> {
         fn eq(&self, other: &Self) -> bool {
             self == other
@@ -348,6 +343,12 @@ mod tests {
         assert!(server_started.is_ok());
         grpc_info!("Server started");
         let shutdown_tx = server_started.unwrap();
+
+        // invalid host, fail to connect
+        let mock_client: GrpcClient<MockClient<Channel>> =
+            GrpcClient::new_client("?:><:?", server_port, name);
+        let result = mock_client.get_client().await.unwrap_err();
+        assert_eq!(result.code(), tonic::Code::Internal);
 
         let mock_client: GrpcClient<MockClient<Channel>> =
             GrpcClient::new_client(server_host, server_port, name);

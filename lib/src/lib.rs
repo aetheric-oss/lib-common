@@ -2,6 +2,8 @@
 
 #[cfg(any(feature = "grpc", test))]
 pub mod grpc;
+pub mod logger;
 pub mod time;
+pub mod uuid;
 
 pub use arrow_macros_derive::log_macros;

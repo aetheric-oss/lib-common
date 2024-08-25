@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  ut-coverage:
+    extends:
+      file: docker-compose-base.yml
+      service: ut-coverage

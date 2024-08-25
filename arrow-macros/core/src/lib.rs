@@ -8,6 +8,15 @@ use quote::quote;
 use syn::{parse::Parser, punctuated::Punctuated, Ident, LitStr, Token};
 
 /// Generate debug, info, warn and error log macro's
+/// ```compile_fail
+/// fn test_log_macros_core_invalid_tokens() {
+///     let input = quote! {
+///         #[inert <T>]
+///         struct S;
+///     };
+///    log_macros_core(input);
+/// }
+/// ```
 pub fn log_macros_core(input: TokenStream) -> TokenStream {
     if input.is_empty() {
         abort!(input, "log_macros takes at least 1 argument")
@@ -37,6 +46,7 @@ pub fn log_macros_core(input: TokenStream) -> TokenStream {
     ];
 
     let macro_exports = macros.iter().map(|level| {
+        // this can panic with an invalid identifier
         let macro_name = syn::Ident::new(
             &format!("{}_{}", log_type, level),
             proc_macro2::Span::call_site(),
@@ -46,9 +56,24 @@ pub fn log_macros_core(input: TokenStream) -> TokenStream {
             #[doc = concat!("Writes a ", stringify!(#level), "! message to the `", #log_prefix, "::", #log_type, "` logger")]
             #[macro_export]
             macro_rules! #macro_name {
-                ($($arg:tt)+) => {
-                    log::#level!(target: concat!(#log_prefix, "::", #log_type), $($arg)+)
-                };
+                ($($arg:tt)+) => {{
+                    let content = format!($($arg)+);
+                    let name: &str = {{
+                        fn f() {}
+
+                        fn type_name_of<T>(_: T) -> &'static str {
+                            std::any::type_name::<T>()
+                        }
+
+                        type_name_of(f) // mod::path::target_function::f
+                            .trim_end_matches("::f") // mod::path::target_function
+                            .trim_end_matches(r#"::{{closure}}"#) // if {{closure}} is in the path
+                            .split("::") // ["mod", "path", "target_function"]
+                            .last() // "target_function"
+                            .unwrap_or("unknown_function")
+                    }};
+                    log::#level!(target: concat!(#log_prefix, "::", #log_type), "({name}) {}", content)
+                }};
             }
         }
     });
