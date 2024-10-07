@@ -33,3 +33,5 @@ seccomp
 Lcov
 Timelike
 Datelike
+cfgs
+Rnever

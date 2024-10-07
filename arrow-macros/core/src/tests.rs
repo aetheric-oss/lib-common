@@ -5,7 +5,7 @@ use proc_macro2::TokenStream;
 use quote::quote;
 
 #[cfg(not(tarpaulin_include))]
-// no_coverage: (R5) Helper test function
+// no_coverage: (Rnever) Helper test function
 fn assert_tokens_eq(expected: &TokenStream, actual: &TokenStream) {
     let expected = expected.to_string();
     let actual = actual.to_string();
@@ -118,7 +118,7 @@ fn test_log_macro_default_prefix() {
             }};
         }
     );
-    let output = log_macros_core(input.into());
+    let output = log_macros_core(input);
     assert_tokens_eq(&output, &expected_output);
 }
 
