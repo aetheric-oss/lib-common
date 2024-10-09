@@ -1,3 +1,14 @@
+## [Release 3.0.0](https://github.com/aetheric-oss/lib-common/releases/tag/v3.0.0)
+
+### 💥 Breaking Changes
+
+- update cargo dependency versions ([`34e6d8e`](https://github.com/aetheric-oss/lib-common/commit/34e6d8eacdc71d49bea0f67cd4d5ec463d20f35b))
+
+### 🛠 Maintenance
+
+- tofu provisioned file changes ([`dc424e0`](https://github.com/aetheric-oss/lib-common/commit/dc424e09317aea4f4cb3028ab6128340fd111035))
+- tofu provisioned file changes ([`cbd5271`](https://github.com/aetheric-oss/lib-common/commit/cbd52713584dd2c4e90840e905d11ddd9ddadcf5))
+
 ## [Release 2.0.0](https://github.com/aetheric-oss/lib-common/releases/tag/v2.0.0)
 
 ### 💥 Breaking Changes
