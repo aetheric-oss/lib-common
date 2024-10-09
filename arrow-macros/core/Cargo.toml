@@ -2,7 +2,7 @@
 description = "Aetheric Services Common Proc Macros"
 keywords    = ["vtol", "lib", "common", "macro"]     # max 5
 name        = "arrow-macros-core"
-version     = "2.0.0"
+version     = "2.0.1-develop.0"
 
 categories.workspace   = true
 edition.workspace      = true
@@ -18,3 +18,9 @@ syn              = { version = "2.0", features = ["extra-traits", "full", "fold"
 
 [dev-dependencies]
 colored-diff = "0.2"
+
+# https://github.com/xd009642/tarpaulin?tab=readme-ov-file#ignoring-code-in-files
+# removes warnings introduced by rust 1.8
+# can be removed when the cfg attributes can be replaced with `#[coverage(off)]` (currently only available in nightly)
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(tarpaulin_include)'] }

@@ -3,7 +3,8 @@
 use std::convert::Infallible;
 use tokio::sync::oneshot::{self, Sender};
 use tonic::body::BoxBody;
-use tonic::transport::{NamedService, Server};
+use tonic::server::NamedService;
+use tonic::transport::Server;
 use tower::Service;
 
 /// Starts a [`tokio`] server listening on 50051 for our `MockService`
@@ -45,7 +46,7 @@ pub async fn start_server<S>(
     service: S,
 ) -> Result<Sender<()>, Box<dyn std::error::Error>>
 where
-    S: Service<http::Request<hyper::Body>, Response = http::Response<BoxBody>, Error = Infallible>
+    S: Service<http::Request<BoxBody>, Response = http::Response<BoxBody>, Error = Infallible>
         + NamedService
         + Clone
         + Send
@@ -132,7 +133,7 @@ pub async fn start_mock_server<S>(
     service: S,
 ) -> Result<(), tonic::transport::Error>
 where
-    S: Service<http::Request<hyper::Body>, Response = http::Response<BoxBody>, Error = Infallible>
+    S: Service<http::Request<BoxBody>, Response = http::Response<BoxBody>, Error = Infallible>
         + NamedService
         + Clone
         + Send
@@ -142,7 +143,7 @@ where
     println!("(start_mock_server) Starting server on {:?}", server);
 
     tokio::spawn(async move {
-        tonic::transport::Server::builder()
+        Server::builder()
             .add_service(service)
             .serve_with_incoming(futures::stream::iter(vec![Ok::<_, std::io::Error>(server)]))
             .await
@@ -166,7 +167,7 @@ macro_rules! grpc_mock_client {
             ) -> Result<$rpc_service_client<Channel>, tonic::transport::Error> {
                 let (client, server) = tokio::io::duplex(1024);
                 let grpc_service = $rpc_service::default();
-                lib_common::grpc::mock::start_mock_server(
+                $crate::grpc::mock::start_mock_server(
                     server,
                     $rpc_service_server::new(grpc_service),
                 )
@@ -181,7 +182,7 @@ macro_rules! grpc_mock_client {
 
                         async move {
                             if let Some(client) = client {
-                                Ok(client)
+                                Ok(hyper_util::rt::TokioIo::new(client))
                             } else {
                                 Err(std::io::Error::new(
                                     std::io::ErrorKind::Other,

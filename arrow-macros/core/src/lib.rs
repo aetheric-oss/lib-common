@@ -47,7 +47,7 @@ pub fn log_macros_core(input: TokenStream) -> TokenStream {
 
     let macro_exports = macros.iter().map(|level| {
         // this can panic with an invalid identifier
-        let macro_name = syn::Ident::new(
+        let macro_name = Ident::new(
             &format!("{}_{}", log_type, level),
             proc_macro2::Span::call_site(),
         );
