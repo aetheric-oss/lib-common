@@ -2,13 +2,8 @@
 
 # `lib-common` Library
 
-![GitHub stable release (latest by date)](https://img.shields.io/github/v/release/aetheric-oss/lib-common?sort=semver&color=green)
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/aetheric-oss/lib-common?include_prereleases)
-[![Coverage Status](https://coveralls.io/repos/github/aetheric-oss/lib-common/badge.svg?branch=develop)](https://coveralls.io/github/aetheric-oss/lib-common)
-![Sanity Checks](https://github.com/aetheric-oss/lib-common/actions/workflows/sanity_checks.yml/badge.svg?branch=main)
-![Rust Checks](https://github.com/aetheric-oss/lib-common/actions/workflows/rust_ci.yml/badge.svg?branch=main)
-![Python PEP8](https://github.com/aetheric-oss/lib-common/actions/workflows/python_ci.yml/badge.svg?branch=main)
-![Arrow DAO Discord](https://img.shields.io/discord/853833144037277726?style=plastic)
+![GitHub stable release (latest by date)](https://img.shields.io/github/v/release/aetheric-oss/lib-common?sort=semver&color=green) ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/aetheric-oss/lib-common?include_prereleases) [![Coverage Status](https://coveralls.io/repos/github/aetheric-oss/lib-common/badge.svg?branch=develop)](https://coveralls.io/github/aetheric-oss/lib-common)
+![Sanity Checks](https://github.com/aetheric-oss/lib-common/actions/workflows/sanity_checks.yml/badge.svg?branch=main) ![Rust Checks](https://github.com/aetheric-oss/lib-common/actions/workflows/rust_ci.yml/badge.svg?branch=main)
 
 ## :telescope: Overview
 
